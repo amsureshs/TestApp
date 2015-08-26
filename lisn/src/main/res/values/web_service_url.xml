@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="book_list_url">http://buddika-001-site1.mywindowshosting.com/booklist.php</string>
+    <string name="add_user_url">http://buddika-001-site1.mywindowshosting.com/adduser.php</string>
+    <string name="user_action_url">http://buddika-001-site1.mywindowshosting.com/useract.php</string>
+    <string name="search_book_url">http://buddika-001-site1.mywindowshosting.com/searchedbooklist.php</string>
+</resources>
+    <!--http://www.victoriassecret.com/store-locator/store?id=%1$s&amp;lat=%2$s&amp;lng=%3$s  ?searchstr=-->
+
+
+    <!--http://buddika-001-site1.mywindowshosting.com/adduser.php?username=buddika&email=abc@gmail.com&mobile=123&fbname=bud&age=30&pref=xyz-->

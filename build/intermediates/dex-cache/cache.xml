@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/Lisn/facebookSDK/unspecified/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5a77f364d4609e82607310c486b5faefeca0927b">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-b9c426140cbb6e34ab14f1949f42fcbf35aff006.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-50a71fb64a76f00a20b089dd1eb60dcdb926c709.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/Lisn/facebookSDK/unspecified/libs/bolts-android-1.1.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/bolts-android-1.1.2-9536baa2a1fa752e06ad00761f913280a85fb47a.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/libs/volley.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/volley-e583d0a49fc45e55238ecff985d3307e6ba2bf9a.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.1.2/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0d6546c1c73cb64a6907f694e6c4bf4b50fefa70">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-33cdf5e11fd5b6cea5104ff7b95a9395cc28d4a1.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/Lisn/facebookSDK/unspecified/libs/bolts-android-1.1.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/bolts-android-1.1.2-9536baa2a1fa752e06ad00761f913280a85fb47a.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/libs/volley.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/volley-e583d0a49fc45e55238ecff985d3307e6ba2bf9a.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-b5347fa0ba92a366d9bbd20e3a53c024269b709b.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.1.2/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="158555fbeff80e5a85464a818eadda8a448a1051">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-e6e3007057369f34a1fdb5c72212640e99dd5b14.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.android.support/design/22.2.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-0a7b9a4ce2a2c2303ebffb6f9b701ac8a9a68502.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.2.3/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="151dcc4be9b748290223c6bbf94bf8213181a971">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-ea4a1e491066a6b4d7caa6d6026cd71590c92221.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7372378dec00f25c04714a058617e515858273c8">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-04d0350b82bda78840cab537b8b49bdae1d103b4.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-f26efc620b64355b90b93c05d3e4ec6d8b3a1175.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.2.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="151dcc4be9b748290223c6bbf94bf8213181a971">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-ea4a1e491066a6b4d7caa6d6026cd71590c92221.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/Lisn/facebookSDK/unspecified/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4412492d68ef3a94bd70f6a633fa4e65988d60b7">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-b9c426140cbb6e34ab14f1949f42fcbf35aff006.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-17225bd3e466a779b8ab0d820ce023e4c1de8044.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="7372378dec00f25c04714a058617e515858273c8">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-04d0350b82bda78840cab537b8b49bdae1d103b4.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.1.2/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="158555fbeff80e5a85464a818eadda8a448a1051">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-e6e3007057369f34a1fdb5c72212640e99dd5b14.jar" />
+    </item>
+    <item
+        jar="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.1.2/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0d6546c1c73cb64a6907f694e6c4bf4b50fefa70">
+        <dex dex="/Users/Rasika/Documents/Project/Rtech/AudioBook/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-33cdf5e11fd5b6cea5104ff7b95a9395cc28d4a1.jar" />
+    </item>
+
+</items>
