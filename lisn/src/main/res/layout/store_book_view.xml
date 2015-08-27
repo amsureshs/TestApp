@@ -78,28 +78,30 @@
         android:visibility="visible"
         android:background="@color/color_transparent_alpha_0.8"
         >
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-           />
         <TextView
             android:id="@+id/preview_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Preview"
-            android:textColor="@color/background_material_dark"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/grid_view_textSize" />
+            android:textColor="@color/windowBackground"
+            android:layout_centerHorizontal="true"
+            android:textSize="15sp" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+           />
+
         <TextView
             android:id="@+id/time_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/background_material_dark"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/grid_view_textSize" />
+            android:textColor="@color/windowBackground"
+            android:layout_centerInParent="true"
+            android:textSize="20sp" />
         </RelativeLayout>
 
 </RelativeLayout>

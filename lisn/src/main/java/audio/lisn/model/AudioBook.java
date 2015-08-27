@@ -20,7 +20,7 @@ public class AudioBook implements Serializable{
     private int downloadCount;
     private float previewDuration;
     private boolean isDownloaded;
-    private boolean isPlayingPreview;
+   // private boolean isPlayingPreview;
     //private String[] downloaded_file_urls;
     LanguageCode lanCode;
     private HashMap<String, String> downloadedFileList =null;
@@ -41,14 +41,14 @@ public class AudioBook implements Serializable{
         this.isDownloaded = isDownloaded;
     }
 
-    public boolean isPlayingPreview() {
-
-        return isPlayingPreview;
-    }
-
-    public void setPlayingPreview(boolean isPlayingPreview) {
-        this.isPlayingPreview = isPlayingPreview;
-    }
+//    public boolean isPlayingPreview() {
+//
+//        return isPlayingPreview;
+//    }
+//
+//    public void setPlayingPreview(boolean isPlayingPreview) {
+//        this.isPlayingPreview = isPlayingPreview;
+//    }
 
     public float getPreviewDuration() {
         return previewDuration;

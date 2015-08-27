@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -31,6 +31,7 @@ import java.util.List;
 import audio.lisn.R;
 import audio.lisn.app.AppController;
 import audio.lisn.model.AudioBook;
+import audio.lisn.util.AppUtils;
 import audio.lisn.util.ConnectionDetector;
 import audio.lisn.util.CustomTypeFace;
 
@@ -49,8 +50,11 @@ public class StoreBookGridViewAdapter extends ArrayAdapter implements  Runnable,
     ProgressDialog mProgressDialog;
     ConnectionDetector connectionDetector;
     AudioBook selectedAudioBook;
+    private boolean isPlayingPreview,isLoadingPreview;
 
     Intent previewPlaybackServiceIntent;
+    String leftTime;
+
 
     // int selectedBookIndex;
     //  private ArrayList data = new ArrayList();
@@ -100,14 +104,26 @@ public class StoreBookGridViewAdapter extends ArrayAdapter implements  Runnable,
 
        //final AudioBook book = audioBooks.get(position);
         AudioBook book = audioBooks.get(position);
-        if(book.isPlayingPreview()){
+        if((isLoadingPreview || isPlayingPreview) && selectedAudioBook.getBook_id().equalsIgnoreCase(book.getBook_id()) ){
             holder.previewLayout.setVisibility(View.VISIBLE);
-            holder.spinner.setVisibility(View.VISIBLE);
             holder.playButton.setImageResource(R.drawable.btn_play_pause);
+
+            if(isPlayingPreview){
+                holder.spinner.setVisibility(View.INVISIBLE);
+                holder.previewLabel.setText("Preview");
+                holder.timeLabel.setText(leftTime);
+
+            }else{
+                holder.spinner.setVisibility(View.VISIBLE);
+                holder.previewLabel.setText("Loading...");
+                holder.timeLabel.setText("");
+
+            }
+
 
         }else{
             holder.previewLayout.setVisibility(View.GONE);
-            holder.spinner.setVisibility(View.GONE);
+           // holder.spinner.setVisibility(View.GONE);
             holder.playButton.setImageResource(R.drawable.btn_play_start);
 
         }
@@ -155,7 +171,7 @@ public class StoreBookGridViewAdapter extends ArrayAdapter implements  Runnable,
             public void onClick(View v) {
 
                 if(listener != null){
-                    releaseMediaPlayer();
+
                     PopupMenu popupMenu = new PopupMenu(listener.getListenerActivity(), finalRow);
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         public boolean onMenuItemClick(MenuItem item) {
@@ -166,9 +182,11 @@ public class StoreBookGridViewAdapter extends ArrayAdapter implements  Runnable,
                                     playButtonPressed(audioBook,bookIndex);
                                     break;
                                 case R.id.action_purchase:
+                                    releaseMediaPlayer();
                                     listener.onStoreBookSelect(audioBook, AudioBook.SelectedAction.ACTION_PURCHASE);
                                     break;
                                 case R.id.action_detail:
+                                    releaseMediaPlayer();
                                     listener.onStoreBookSelect(audioBook, AudioBook.SelectedAction.ACTION_DETAIL);
 
                                     break;
@@ -176,11 +194,7 @@ public class StoreBookGridViewAdapter extends ArrayAdapter implements  Runnable,
                                     break;
 
                             }
-                            Toast.makeText(
-                                    context,
-                                    "You Clicked : " + item.getTitle(),
-                                    Toast.LENGTH_SHORT
-                            ).show();
+                            
                             return true;
                         }
                     });
@@ -208,16 +222,52 @@ public class StoreBookGridViewAdapter extends ArrayAdapter implements  Runnable,
         return row;
     }
     private void playButtonPressed(AudioBook audioBook,int bookIndex){
-        if(audioBook.getPreview_audio() != null) {
-            if(previewPlaybackServiceIntent == null)
-                previewPlaybackServiceIntent= AppController.getInstance().getPreviewPlaybackServiceIntent();
+        if (audioBook.getPreview_audio() !=null && (audioBook.getPreview_audio().length()>0)) {
+            boolean stopPlayer = false;
+            if(selectedAudioBook != null){
+                if((isLoadingPreview || isPlayingPreview ) && (audioBook.getBook_id().equalsIgnoreCase(selectedAudioBook.getBook_id()))){
+                    stopPlayer=true;
+                }
+            }
+            selectedAudioBook=audioBook;
+            if(stopPlayer){
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.stop();
+                    new Thread(this).interrupt();
+                }
 
+                mediaPlayer.reset();
+                isPlayingPreview=false;
+                isLoadingPreview=false;
 
-           // stopService(playbackServiceIntent);
-           // startService(playbackServiceIntent);
-            AppController.getInstance().playPreviewFile(audioBook.getPreview_audio());
+            }else{
+                playPreview();
+            }
+
+           // AppController.getInstance().playPreviewFile(audioBook.getPreview_audio());
+        }else{
+            if(selectedAudioBook != null && isPlayingPreview){
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.stop();
+                    new Thread(this).interrupt();
+                }
+
+                mediaPlayer.reset();
+                isPlayingPreview=false;
+                isLoadingPreview=false;
+
+            }
         }
+        notifyDataSetChanged();
         }
+
+//    private void playButtonPressed(AudioBook audioBook,int bookIndex){
+//        if(audioBook.getPreview_audio() != null) {
+//            if(previewPlaybackServiceIntent == null)
+//                previewPlaybackServiceIntent= AppController.getInstance().getPreviewPlaybackServiceIntent();
+//            AppController.getInstance().playPreviewFile(audioBook.getPreview_audio());
+//        }
+//    }
     /*
     private void playButtonPressed(AudioBook audioBook,int bookIndex){
         if(audioBook.getPreview_audio() != null) {
@@ -275,7 +325,34 @@ public class StoreBookGridViewAdapter extends ArrayAdapter implements  Runnable,
 
     @Override
     public void run() {
+        int currentPosition = 0;//
+        while (mediaPlayer != null && mediaPlayer.isPlaying() && currentPosition < mediaPlayer.getDuration()) {
+            try {
+                Thread.sleep(1000);
+                currentPosition = mediaPlayer.getCurrentPosition();
 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            updateTimer();
+        }
+    }
+
+    private void updateTimer() {
+        int currentPosition = mediaPlayer.getCurrentPosition();
+        int totalDuration =mediaPlayer.getDuration();
+        leftTime= AppUtils.milliSecondsToTimer(totalDuration-currentPosition);
+        // Get a handler that can be used to post to the main thread
+        Handler mainHandler = new Handler(context.getMainLooper());
+
+        Runnable myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                notifyDataSetChanged();
+
+            } // This is your code
+        };
+        mainHandler.post(myRunnable);
     }
 
 //    @Override
@@ -301,37 +378,25 @@ public class StoreBookGridViewAdapter extends ArrayAdapter implements  Runnable,
         public Activity getListenerActivity();
     }
 
-    private void playPreview(AudioBook audioBook ) {
-        if (audioBook.getPreview_audio() !=null && (audioBook.getPreview_audio().length()>0)) {
-            if (connectionDetector.isConnectingToInternet()) {
+    private void playPreview( ) {
+        isLoadingPreview=true;
+        isPlayingPreview=false;
+
+        if (connectionDetector.isConnectingToInternet()) {
                 if (mediaPlayer == null) {
                     mediaPlayer = new MediaPlayer();
-
-                }else{
-                    if(mediaPlayer.isPlaying())
-                        mediaPlayer.stop();
-
                 }
+            if(mediaPlayer.isPlaying()){
+                mediaPlayer.stop();
+                new Thread(this).interrupt();
+            }
+
+                mediaPlayer.reset();
 
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 try {
-                    mediaPlayer.setDataSource(audioBook.getPreview_audio());
-                } catch (IllegalArgumentException e) {
-                    Log.v("playPreview","IllegalArgumentException"+e.getMessage());
-
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (SecurityException e) {
-                    Log.v("playPreview","SecurityException"+e.getMessage());
-
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IllegalStateException e) {
-                    Log.v("playPreview","IllegalStateException"+e.getMessage());
-
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
+                    mediaPlayer.setDataSource(selectedAudioBook.getPreview_audio());
+                }catch (IOException e) {
                     Log.v("playPreview","IOException"+e.getMessage());
 
                     // TODO Auto-generated catch block
@@ -339,43 +404,30 @@ public class StoreBookGridViewAdapter extends ArrayAdapter implements  Runnable,
                 }
                 mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     public void onPrepared(MediaPlayer mp) {
+                        isPlayingPreview=true;
+                        isLoadingPreview=false;
+                        startTimer();
                         mp.start();
+                        notifyDataSetChanged();
                     }
                 });
                 mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                     public boolean onError(MediaPlayer mp, int what, int extra) {
-                        mediaPlayer.reset();
-                        stopPreview();
-                        System.out.println("Media Player onError callback!");
-                        return true;
+
+                        return false;
                     }
                 });
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        stopPreview();
+                        isPlayingPreview=false;
+                        isLoadingPreview=false;
+                        stopTimer();
+                        notifyDataSetChanged();
                     }
                 });
-               // mediaPlayer.setOnPreparedListener(this);
                 mediaPlayer.prepareAsync(); // prepare async to not block main
-                // thread
 
-                //btnListenPreview.setEnabled(false);
-
-//                mProgressDialog = new ProgressDialog(context);
-//                mProgressDialog.setMessage("Please wait!");
-//                mProgressDialog.setTitle("Loading...");
-//                mProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                        stopPreview();
-//                    }
-//                });
-            /*
-            mProgressDialog = ProgressDialog.show(this, "Please wait!",
-                    "Loading...", true);
-                    */
 
             } else {
 
@@ -389,21 +441,26 @@ public class StoreBookGridViewAdapter extends ArrayAdapter implements  Runnable,
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
-        }
-    }
-    private void stopPreview(){
-        if (mediaPlayer != null){
-            if(mediaPlayer.isPlaying())
-            mediaPlayer.stop();
-            mediaPlayer.reset();
-           // mediaPlayer.release();
-           // mediaPlayer=null;
-
-        }
-        selectedAudioBook.setPlayingPreview(false);
-        notifyDataSetChanged();
 
     }
+//    private void stopPreview(){
+//        if (mediaPlayer != null){
+//            if(mediaPlayer.isPlaying())
+//            mediaPlayer.stop();
+//            mediaPlayer.release();
+//            mediaPlayer=null;
+//
+//        }
+//
+//
+//    }
+    private void startTimer(){
+        new Thread(this).start();
+    }
+    private void stopTimer(){
+        new Thread(this).interrupt();
+    }
+
     private void releaseMediaPlayer(){
         if (mediaPlayer != null){
             if(mediaPlayer.isPlaying())
