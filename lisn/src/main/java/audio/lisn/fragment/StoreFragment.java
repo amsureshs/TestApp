@@ -2,13 +2,13 @@ package audio.lisn.fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -23,7 +23,7 @@ import java.util.List;
 
 import audio.lisn.R;
 import audio.lisn.activity.AudioBookDetailActivity;
-import audio.lisn.adapter.StoreBookGridViewAdapter;
+import audio.lisn.adapter.StoreBookViewAdapter;
 import audio.lisn.app.AppController;
 import audio.lisn.model.AudioBook;
 import audio.lisn.util.ConnectionDetector;
@@ -37,16 +37,16 @@ import audio.lisn.webservice.JsonUTF8ArrayRequest;
  * Use the {@link StoreFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StoreFragment extends Fragment implements StoreBookGridViewAdapter.StoreBookSelectListener {
+public class StoreFragment extends Fragment implements  StoreBookViewAdapter.StoreBookSelectListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
     private OnStoreBookSelectedListener mListener;
-    GridView gridViewStoreBook;
     ConnectionDetector connectionDetector;
     private ProgressDialog pDialog;
     private List<AudioBook> bookList = new ArrayList<AudioBook>();
-    private StoreBookGridViewAdapter storeBookGridViewAdapter;
+    private StoreBookViewAdapter storeBookViewAdapter;
+    private RecyclerView storeBookView;
     private static final String TAG = StoreFragment.class.getSimpleName();
     private AudioBook selectedBook;
 
@@ -84,9 +84,8 @@ public class StoreFragment extends Fragment implements StoreBookGridViewAdapter.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // BEGIN_INCLUDE (setup_viewpager)
-        // Get the ViewPager and set it's PagerAdapter so that it can display items
-        gridViewStoreBook=(GridView)view.findViewById(R.id.gridViewStoreBook);
-
+        storeBookView=(RecyclerView)view.findViewById(R.id.storeBookContainer);
+        storeBookView.setLayoutManager(new GridLayoutManager(view.getContext(), 3));
 
     }
 
@@ -153,38 +152,39 @@ public class StoreFragment extends Fragment implements StoreBookGridViewAdapter.
 
         bookList.clear();
         // Parsing json
-        for (int i = 0; (i < jsonArray.length()) ; i++) {
-            try {
+            for (int i = 0; (i < jsonArray.length()); i++) {
+                try {
 
-                JSONObject obj = jsonArray.getJSONObject(i);
-                // AudioBook book = new AudioBook();
-                String book_id="";
-                try{
-                    book_id=obj.getString("book_id");
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    // AudioBook book = new AudioBook();
+                    String book_id = "";
+                    try {
+                        book_id = obj.getString("book_id");
+                    } catch (JSONException e) {
+                        book_id = obj.getString("" + i);
+                        e.printStackTrace();
+                    }
+                    AudioBook book = new AudioBook(obj, i);
+
+
+                    bookList.add(book);
+
                 } catch (JSONException e) {
-                    book_id=obj.getString(""+i);
                     e.printStackTrace();
                 }
-                AudioBook book=new AudioBook(obj,i);
 
-
-                bookList.add(book);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
         }
 
         // notifying list adapter about data changes
         // so that it renders the list view with updated data
-        storeBookGridViewAdapter.notifyDataSetChanged();
+        storeBookViewAdapter.notifyDataSetChanged();
     }
     private void loadData() {
-        storeBookGridViewAdapter = new StoreBookGridViewAdapter(getActivity()
-                .getApplicationContext(),R.layout.store_book_view, bookList);
-        storeBookGridViewAdapter.setListener(this);
-        gridViewStoreBook.setAdapter(storeBookGridViewAdapter);
+        storeBookViewAdapter = new StoreBookViewAdapter(getActivity().getApplicationContext(),bookList);
+        storeBookViewAdapter.setStoreBookSelectListener(this);
+        storeBookView.setAdapter(storeBookViewAdapter);
+
 
         if (connectionDetector.isConnectingToInternet()) {
 
@@ -208,32 +208,24 @@ public class StoreFragment extends Fragment implements StoreBookGridViewAdapter.
 
     }
 
-    @Override
-    public void onStoreBookSelect(AudioBook audioBook, AudioBook.SelectedAction btnIndex) {
-        selectedBook=audioBook;
 
+
+
+    @Override
+    public void onStoreBookSelect(View view, AudioBook audioBook, AudioBook.SelectedAction btnIndex) {
         switch (btnIndex){
-            case ACTION_PREVIEW:
-                break;
             case ACTION_DETAIL:
-                showDetailView();
+
+                AudioBookDetailActivity.navigate((android.support.v7.app.AppCompatActivity) getActivity(), view.findViewById(R.id.book_cover_thumbnail), audioBook);
                 break;
             case ACTION_PURCHASE:
+                AudioBookDetailActivity.navigate((android.support.v7.app.AppCompatActivity) getActivity(), view.findViewById(R.id.book_cover_thumbnail), audioBook);
+
             default:
                 break;
 
         }
-    }
 
-    @Override
-    public Activity getListenerActivity() {
-        return getActivity();
-    }
-    private void showDetailView(){
-        Intent intent = new Intent(getActivity().getApplicationContext(),
-                AudioBookDetailActivity.class);
-        intent.putExtra("audioBook", selectedBook);
-        startActivity(intent);
     }
 
     public interface OnStoreBookSelectedListener {

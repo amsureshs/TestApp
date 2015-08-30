@@ -33,8 +33,8 @@ public class MainActivity extends Activity {
         connectionDetector = new ConnectionDetector(getApplicationContext());
 
 
-            // String userName =
-		// AppDataManager.getData(getApplicationContext(),Constants.USER_NAME);
+            // change login process
+        /*
 		if (!isUserLogin()) {
 			Intent intent = new Intent(getApplicationContext(),
 					LoginActivity.class);
@@ -54,6 +54,19 @@ public class MainActivity extends Activity {
             }
 
 		}
+        */
+
+        if (connectionDetector.isConnectingToInternet()) {
+            downloadData();
+        }else{
+
+            new Handler().postDelayed(new Runnable(){
+                @Override
+                public void run() {
+                    loadHome();
+                }
+            }, SPLASH_DISPLAY_LENGTH);
+        }
 
 	}
 
@@ -107,7 +120,7 @@ public class MainActivity extends Activity {
         SharedPreferences sharedPref =getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         boolean loginStatus = sharedPref.getBoolean(getString(R.string.user_login_status), false);
-        String loginId = sharedPref.getString(getString(R.string.user_login_id), "5");
+        String loginId = sharedPref.getString(getString(R.string.user_login_id), "");
         AppController.getInstance().setUserId(loginId);
 
         return loginStatus;

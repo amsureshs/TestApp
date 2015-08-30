@@ -9,7 +9,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,19 +25,21 @@ import audio.lisn.fragment.StoreFragment;
 
 //import android.support.v7.widget.SearchView;
 
-public class HomeActivity extends AudioBookBaseActivity implements NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnHomeItemSelectedListener,StoreFragment.OnStoreBookSelectedListener {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnHomeItemSelectedListener,StoreFragment.OnStoreBookSelectedListener {
 
     private static final String TAG = HomeActivity.class.getSimpleName();
 
     private DrawerLayout drawer;
     NavigationView navigationView;
 //    PlayerControllerView audioPlayerLayout;
-private int mNavItemId;
+    private int mNavItemId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setActionBarIcon(R.drawable.ic_drawer);
+        //setActionBarIcon(R.drawable.ic_drawer);
+        setContentView(R.layout.activity_home);
 
+        initToolbar();
         drawer = (DrawerLayout) findViewById(R.id.drawer);
         drawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         getSupportActionBar().setTitle(R.string.title_home);
@@ -50,9 +55,22 @@ private int mNavItemId;
 
     }
 
-    @Override protected int getLayoutResource() {
-        return R.layout.activity_home;
+    private void initToolbar() {
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        final ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setLogo(R.drawable.ic_app_top_bar);
+        }
     }
+
+
+//    @Override protected int getLayoutResource() {
+//        return R.layout.activity_home;
+//    }
 
 
 

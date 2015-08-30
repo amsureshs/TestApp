@@ -1,13 +1,13 @@
 package audio.lisn.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import audio.lisn.R;
 
 
-public abstract class AudioBookBaseActivity extends  ActionBarActivity {
+public abstract class AudioBookBaseActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 

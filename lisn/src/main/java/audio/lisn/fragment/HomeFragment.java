@@ -5,11 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.GridView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -24,7 +25,7 @@ import java.util.List;
 
 import audio.lisn.R;
 import audio.lisn.activity.AudioBookDetailActivity;
-import audio.lisn.adapter.StoreBookGridViewAdapter;
+import audio.lisn.adapter.StoreBookViewAdapter;
 import audio.lisn.app.AppController;
 import audio.lisn.model.AudioBook;
 import audio.lisn.util.ConnectionDetector;
@@ -37,16 +38,16 @@ import audio.lisn.webservice.JsonUTF8ArrayRequest;
  * to handle interaction events.
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements StoreBookGridViewAdapter.StoreBookSelectListener {
+public class HomeFragment extends Fragment implements StoreBookViewAdapter.StoreBookSelectListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
     private OnHomeItemSelectedListener mListener;
-    GridView gridViewStoreBook,gridViewMyBook;
     ConnectionDetector connectionDetector;
     private ProgressDialog pDialog;
     private List<AudioBook> bookList = new ArrayList<AudioBook>();
-    private StoreBookGridViewAdapter storeBookGridViewAdapter;
+    private StoreBookViewAdapter storeBookViewAdapter;
+    private RecyclerView storeBookView;
     private static final String TAG = HomeFragment.class.getSimpleName();
     private AudioBook selectedBook;
     /**
@@ -95,8 +96,8 @@ public class HomeFragment extends Fragment implements StoreBookGridViewAdapter.S
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // BEGIN_INCLUDE (setup_viewpager)
         // Get the ViewPager and set it's PagerAdapter so that it can display items
-        gridViewStoreBook=(GridView)view.findViewById(R.id.gridViewStoreBook);
-        gridViewMyBook=(GridView)view.findViewById(R.id.gridViewMyBook);
+        storeBookView=(RecyclerView)view.findViewById(R.id.storeBookContainer);
+        storeBookView.setLayoutManager(new GridLayoutManager(view.getContext(), 3));
         Button storeMore=(Button)view.findViewById(R.id.more_store);
         storeMore.setOnClickListener(new View.OnClickListener() {
 
@@ -201,13 +202,12 @@ public class HomeFragment extends Fragment implements StoreBookGridViewAdapter.S
 
         // notifying list adapter about data changes
         // so that it renders the list view with updated data
-        storeBookGridViewAdapter.notifyDataSetChanged();
+        storeBookViewAdapter.notifyDataSetChanged();
     }
     private void loadData() {
-        storeBookGridViewAdapter = new StoreBookGridViewAdapter(getActivity()
-                .getApplicationContext(),R.layout.store_book_view, bookList);
-        storeBookGridViewAdapter.setListener(this);
-        gridViewStoreBook.setAdapter(storeBookGridViewAdapter);
+        storeBookViewAdapter = new StoreBookViewAdapter(getActivity().getApplicationContext(),bookList);
+        storeBookViewAdapter.setStoreBookSelectListener(this);
+        storeBookView.setAdapter(storeBookViewAdapter);
 
         if (connectionDetector.isConnectingToInternet()) {
 
@@ -257,55 +257,22 @@ private void showDetailView(){
     }
 
 
-    @Override
-    public void onStoreBookSelect(AudioBook audioBook, AudioBook.SelectedAction btnIndex) {
-        selectedBook=audioBook;
 
+
+    @Override
+    public void onStoreBookSelect(View view, AudioBook audioBook, AudioBook.SelectedAction btnIndex) {
         switch (btnIndex){
-            case ACTION_PREVIEW:
-                break;
             case ACTION_DETAIL:
-                showDetailView();
+                AudioBookDetailActivity.navigate((android.support.v7.app.AppCompatActivity) getActivity(), view.findViewById(R.id.book_cover_thumbnail), audioBook);
                 break;
             case ACTION_PURCHASE:
+                AudioBookDetailActivity.navigate((android.support.v7.app.AppCompatActivity) getActivity(), view.findViewById(R.id.book_cover_thumbnail), audioBook);
+
             default:
                 break;
 
         }
     }
-    public Activity getListenerActivity(){
-        return getActivity();
-
-    }
-//    @Override
-//    public void onStoreBookSelect(AudioBook audioBook, View convertView, AudioBook.SelectedAction btnIndex) {
-//        selectedBook=audioBook;
-//        PopupMenu popupMenu = new PopupMenu(getActivity(), convertView);
-//        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//            public boolean onMenuItemClick(MenuItem item) {
-//                switch (item.getItemId()){
-//                    case R.id.action_preview:
-//                        break;
-//                    case R.id.action_purchase:
-//                        break;
-//                    case R.id.action_detail:
-//                        showDetailView();
-//                        break;
-//                    default:
-//                        break;
-//
-//                }
-////                Toast.makeText(
-////                        getActivity(),
-////                        "You Clicked : " + item.getTitle(),
-////                        Toast.LENGTH_SHORT
-////                ).show();
-//                return true;
-//            }
-//        });
-//        popupMenu.inflate(R.menu.store_book_menu);
-//        popupMenu.show();
-//    }
 
     /**
      * This interface must be implemented by activities that contain this
