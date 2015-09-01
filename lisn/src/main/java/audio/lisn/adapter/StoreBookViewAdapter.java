@@ -178,6 +178,16 @@ public class StoreBookViewAdapter extends RecyclerView.Adapter<StoreBookViewAdap
                                     }, 200);
                                 }
                                 break;
+                            case R.id.action_play:
+                                releaseMediaPlayer();
+                                if (listener != null) {
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override public void run() {
+                                            listener.onStoreBookSelect(holder.itemView,(AudioBook) holder.itemView.getTag(),AudioBook.SelectedAction.ACTION_PLAY);
+                                        }
+                                    }, 200);
+                                }
+                                break;
                             default:
                                 break;
 

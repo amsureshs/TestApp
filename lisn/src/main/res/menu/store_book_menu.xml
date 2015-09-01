@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:id="@+id/group_purchase">
     <item
         android:id="@+id/action_purchase"
         android:title="Purchase"/>
-</group>
-    <group android:id="@+id/group_preview">
 
     <item
         android:id="@+id/action_preview"
         android:title="Preview"/>
-</group>
-    <group android:id="@+id/group_detail">
 
     <item
         android:id="@+id/action_detail"
         android:title="Details"/>
-    </group>
+    <item
+        android:id="@+id/action_play"
+        android:title="Play"/>
 </menu>

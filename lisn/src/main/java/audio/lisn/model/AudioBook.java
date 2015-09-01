@@ -20,7 +20,9 @@ public class AudioBook implements Serializable{
     private int downloadCount;
     private float previewDuration;
     private boolean isDownloaded;
-   // private boolean isPlayingPreview;
+    public int imageResId;
+
+    // private boolean isPlayingPreview;
     //private String[] downloaded_file_urls;
     LanguageCode lanCode;
     private HashMap<String, String> downloadedFileList =null;
@@ -63,7 +65,7 @@ public class AudioBook implements Serializable{
 		LAN_EN, LAN_SI
 	}
     public enum SelectedAction {
-        ACTION_MORE, ACTION_PREVIEW,ACTION_DETAIL,ACTION_PURCHASE
+        ACTION_MORE, ACTION_PREVIEW,ACTION_DETAIL,ACTION_PURCHASE,ACTION_PLAY
     }
 
     public AudioBook() {

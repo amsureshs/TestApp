@@ -35,6 +35,7 @@ android {
 
 dependencies {
     compile project(':facebookSDK')
+    compile project(':CoverFlowlib')
     compile 'com.android.support:appcompat-v7:22.2.0'
 
     compile files('libs/volley.jar')

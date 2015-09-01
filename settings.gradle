@@ -1,2 +1,2 @@
-include ':facebookSDK'
+include ':facebookSDK', ':CoverFlowlib'
 include ':lisn'

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/CoverFlowlib/CoverFlowlib.iml" filepath="$PROJECT_DIR$/CoverFlowlib/CoverFlowlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/Lisn.iml" filepath="$PROJECT_DIR$/Lisn.iml" />
       <module fileurl="file://$PROJECT_DIR$/facebookSDK/facebookSDK.iml" filepath="$PROJECT_DIR$/facebookSDK/facebookSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/lisn/lisn.iml" filepath="$PROJECT_DIR$/lisn/lisn.iml" />
