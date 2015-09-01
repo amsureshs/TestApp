@@ -19,12 +19,18 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import audio.lisn.R;
 import audio.lisn.adapter.CoverFlowAdapter;
+import audio.lisn.app.AppController;
 import audio.lisn.model.AudioBook;
+import audio.lisn.util.CustomTypeFace;
 import it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow;
 
 public class PlayerControllerActivity extends AppCompatActivity {
@@ -33,7 +39,7 @@ public class PlayerControllerActivity extends AppCompatActivity {
     private FeatureCoverFlow mCoverFlow;
     private CoverFlowAdapter mAdapter;
     private TextSwitcher mTitle;
-    private List<AudioBook> items =new ArrayList<>(0);
+    private List<AudioBook> bookList =new ArrayList<>(0);
 
 
 
@@ -77,7 +83,7 @@ public class PlayerControllerActivity extends AppCompatActivity {
         Animation out = AnimationUtils.loadAnimation(this, R.anim.slide_out_bottom);
         mTitle.setInAnimation(in);
         mTitle.setOutAnimation(out);
-
+/*
         AudioBook book1 = new AudioBook();
         book1.imageResId=R.drawable.image_1;
         book1.setEnglish_title("God of War Ascension");
@@ -101,9 +107,13 @@ public class PlayerControllerActivity extends AppCompatActivity {
         items.add(book2);
         items.add(book3);
         items.add(book4);
-
+*/
+        JSONArray jsonArray = AppController.getInstance().getBookList();
+        if (jsonArray != null) {
+            setData(jsonArray);
+        }
         mAdapter = new CoverFlowAdapter(this);
-        mAdapter.setData(items);
+        mAdapter.setData(bookList);
         mCoverFlow = (FeatureCoverFlow) findViewById(R.id.coverflow);
         mCoverFlow.setAdapter(mAdapter);
         mCoverFlow.setReflectionHeight(0.2f);
@@ -121,7 +131,7 @@ public class PlayerControllerActivity extends AppCompatActivity {
         mCoverFlow.setOnScrollPositionListener(new FeatureCoverFlow.OnScrollPositionListener() {
             @Override
             public void onScrolledToPosition(int position) {
-                mTitle.setText(items.get(position).getEnglish_title());
+                setBookTitle(position);
             }
 
             @Override
@@ -130,10 +140,54 @@ public class PlayerControllerActivity extends AppCompatActivity {
                 mTitle.setText("");
             }
         });
+        setBookTitle(0);
+
 
     }
+private void setBookTitle(int position){
+    AudioBook book = bookList.get(position);
+    TextView textView= (TextView) mTitle.getCurrentView();
+
+    if(book.getLanguageCode()== AudioBook.LanguageCode.LAN_SI){
+        textView.setTypeface(CustomTypeFace.getSinhalaTypeFace(mTitle.getContext()));
+    }else{
+        textView.setTypeface(CustomTypeFace.getEnglishTypeFace(mTitle.getContext()));
+    }
+    mTitle.setText(bookList.get(position).getTitle());
+
+}
+    private void setData(JSONArray jsonArray){
+        //JSONArray response = jsonArray;
+
+        bookList.clear();
+        // Parsing json
+        for (int i = 0; (i < jsonArray.length() && i< 3) ; i++) {
+            //  for (int i = 0; (i < jsonArray.length()) ; i++) {
+            try {
+
+                JSONObject obj = jsonArray.getJSONObject(i);
+                // AudioBook book = new AudioBook();
+                String book_id="";
+                try{
+                    book_id=obj.getString("book_id");
+                } catch (JSONException e) {
+                    book_id=obj.getString(""+i);
+                    e.printStackTrace();
+                }
+                AudioBook book=new AudioBook(obj,i);
 
 
+                bookList.add(book);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        // notifying list adapter about data changes
+        // so that it renders the list view with updated data
+    }
 
 
     private void initActivityTransitions() {

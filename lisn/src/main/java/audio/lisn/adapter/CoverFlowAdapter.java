@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +48,7 @@ public class CoverFlowAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 
         View rowView = convertView;
+        AudioBook book = mData.get(position);
 
         if (rowView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -59,9 +62,14 @@ public class CoverFlowAdapter extends BaseAdapter {
         }
 
         ViewHolder holder = (ViewHolder) rowView.getTag();
+        holder.image.setImageBitmap(null);
+        Picasso.with(holder.image.getContext())
+                .load(book.getCover_image())
+                .placeholder(R.drawable.audiobook_placeholder)
+                .into(holder.image);
 
-        holder.image.setImageResource(mData.get(position).imageResId);
-        holder.text.setText(mData.get(position).getEnglish_title());
+       // holder.image.setImageResource(mData.get(position).imageResId);
+        holder.text.setText(book.getEnglish_title());
 
 		return rowView;
 	}

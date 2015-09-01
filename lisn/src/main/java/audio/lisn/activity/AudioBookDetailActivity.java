@@ -1,7 +1,10 @@
 package audio.lisn.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -9,11 +12,14 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -22,17 +28,24 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Random;
 
 import audio.lisn.R;
 import audio.lisn.model.AudioBook;
+import audio.lisn.util.ConnectionDetector;
 import audio.lisn.util.CustomTypeFace;
 
-public class AudioBookDetailActivity extends  AppCompatActivity {
+public class AudioBookDetailActivity extends  AppCompatActivity implements Runnable{
 
     private static final String TRANSITION_NAME = "audio.lisn.AudioBookDetailActivity";
     private CollapsingToolbarLayout collapsingToolbarLayout;
     AudioBook audioBook;
+    ImageButton previewPlayButton;
+    private boolean isPlayingPreview,isLoadingPreview;
+    MediaPlayer mediaPlayer = null;
+    ConnectionDetector connectionDetector;
+
 
 
     public static void navigate(AppCompatActivity activity, View transitionImage, AudioBook audioBook) {
@@ -60,6 +73,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity {
         collapsingToolbarLayout.setTitle(itemTitle);
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
+        connectionDetector = new ConnectionDetector(getApplicationContext());
 
         updateData();
 
@@ -94,7 +108,14 @@ public class AudioBookDetailActivity extends  AppCompatActivity {
         TextView narrator = (TextView) findViewById(R.id.narrator);
         TextView ratingValue = (TextView) findViewById(R.id.rating_value);
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rating_bar);
+         previewPlayButton = (ImageButton) findViewById(R.id.previewPlayButton);
+        previewPlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playPreview();
 
+            }
+        });
         if(audioBook.getLanguageCode()== AudioBook.LanguageCode.LAN_SI){
             description.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
             title.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
@@ -147,6 +168,90 @@ public class AudioBookDetailActivity extends  AppCompatActivity {
 
     }
 
+    private void playPreview( ) {
+
+        isLoadingPreview=true;
+        isPlayingPreview=false;
+
+        if (connectionDetector.isConnectingToInternet()) {
+            if (mediaPlayer == null) {
+                mediaPlayer = new MediaPlayer();
+            }
+            if(mediaPlayer.isPlaying()){
+                mediaPlayer.stop();
+                new Thread(this).interrupt();
+            }
+
+            mediaPlayer.reset();
+
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            try {
+                mediaPlayer.setDataSource(audioBook.getPreview_audio());
+            }catch (IOException e) {
+                Log.v("playPreview", "IOException" + e.getMessage());
+
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                public void onPrepared(MediaPlayer mp) {
+                    isPlayingPreview=true;
+                    isLoadingPreview=false;
+                    startTimer();
+                    mp.start();
+                //    notifyDataSetChanged();
+                }
+            });
+            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+
+                    return false;
+                }
+            });
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    isPlayingPreview=false;
+                    isLoadingPreview=false;
+                    stopTimer();
+                 //   notifyDataSetChanged();
+                }
+            });
+            mediaPlayer.prepareAsync(); // prepare async to not block main
+
+
+        } else {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("No Internet Connection").setPositiveButton(
+                    "OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // FIRE ZE MISSILES!
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
+    }
+
+    private void startTimer(){
+        new Thread(this).start();
+    }
+    private void stopTimer(){
+        new Thread(this).interrupt();
+    }
+
+    private void releaseMediaPlayer(){
+        if (mediaPlayer != null){
+            if(mediaPlayer.isPlaying())
+                mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer=null;
+
+        }
+    }
+
 
     private void initActivityTransitions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -187,5 +292,10 @@ public class AudioBookDetailActivity extends  AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void run() {
+
     }
 }

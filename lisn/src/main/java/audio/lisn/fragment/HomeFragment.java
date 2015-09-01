@@ -25,6 +25,7 @@ import java.util.List;
 
 import audio.lisn.R;
 import audio.lisn.activity.AudioBookDetailActivity;
+import audio.lisn.activity.PlayerControllerActivity;
 import audio.lisn.adapter.StoreBookViewAdapter;
 import audio.lisn.app.AppController;
 import audio.lisn.model.AudioBook;
@@ -262,14 +263,20 @@ private void showDetailView(){
     @Override
     public void onStoreBookSelect(View view, AudioBook audioBook, AudioBook.SelectedAction btnIndex) {
         switch (btnIndex){
+            case ACTION_PURCHASE:
+                AudioBookDetailActivity.navigate((android.support.v7.app.AppCompatActivity) getActivity(), view.findViewById(R.id.book_cover_thumbnail), audioBook);
+                break;
             case ACTION_DETAIL:
                 AudioBookDetailActivity.navigate((android.support.v7.app.AppCompatActivity) getActivity(), view.findViewById(R.id.book_cover_thumbnail), audioBook);
                 break;
-            case ACTION_PURCHASE:
-                AudioBookDetailActivity.navigate((android.support.v7.app.AppCompatActivity) getActivity(), view.findViewById(R.id.book_cover_thumbnail), audioBook);
+
+            case ACTION_PLAY:
+                PlayerControllerActivity.navigate((android.support.v7.app.AppCompatActivity) getActivity(), view.findViewById(R.id.book_cover_thumbnail), audioBook);
+                break;
 
             default:
                 break;
+
 
         }
     }
