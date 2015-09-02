@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import audio.lisn.R;
 import audio.lisn.fragment.HomeFragment;
@@ -34,6 +33,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
 //    PlayerControllerView audioPlayerLayout;
     private int mNavItemId;
+    boolean isUserLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,15 +47,30 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setTitle(R.string.title_home);
 
         // listen for navigation events
-        navigationView = (NavigationView) findViewById(R.id.navigation_none_member);
-       navigationView.setVisibility(View.VISIBLE);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
+        isUserLogin=true;
+        updateNavigationView();
+        if(isUserLogin){
+            mNavItemId=R.id.drawer_home;
 
-        // select the correct nav menu item
-      //  navigationView.getMenu().findItem(mNavItemId).setChecked(true);
-        mNavItemId=R.id.drawer_home;
+        }else{
+            mNavItemId=R.id.drawer_store;
+
+        }
+
         navigateFragment(mNavItemId);
 
+    }
+    private void updateNavigationView() {
+        navigationView.getMenu().clear();
+        if (isUserLogin){
+            navigationView.inflateMenu(R.menu.navigation_menu_member);
+
+        }else{
+            navigationView.inflateMenu(R.menu.navigation_menu_none_member);
+
+        }
     }
 
     private void initToolbar() {
