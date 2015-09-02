@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import audio.lisn.R;
 import audio.lisn.fragment.HomeFragment;
@@ -37,6 +38,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setActionBarIcon(R.drawable.ic_drawer);
+
         setContentView(R.layout.activity_home);
 
         initToolbar();
@@ -45,7 +47,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setTitle(R.string.title_home);
 
         // listen for navigation events
-        navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView = (NavigationView) findViewById(R.id.navigation_none_member);
+       navigationView.setVisibility(View.VISIBLE);
         navigationView.setNavigationItemSelectedListener(this);
 
         // select the correct nav menu item

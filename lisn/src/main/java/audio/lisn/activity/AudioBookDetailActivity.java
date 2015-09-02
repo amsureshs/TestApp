@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -21,7 +22,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -33,6 +36,7 @@ import java.util.Random;
 
 import audio.lisn.R;
 import audio.lisn.model.AudioBook;
+import audio.lisn.util.AppUtils;
 import audio.lisn.util.ConnectionDetector;
 import audio.lisn.util.CustomTypeFace;
 
@@ -42,9 +46,15 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements Runna
     private CollapsingToolbarLayout collapsingToolbarLayout;
     AudioBook audioBook;
     ImageButton previewPlayButton;
-    private boolean isPlayingPreview,isLoadingPreview;
+    //private boolean isPlayingPreview,isLoadingPreview;
     MediaPlayer mediaPlayer = null;
     ConnectionDetector connectionDetector;
+
+    public RelativeLayout previewLayout;
+    public TextView previewLabel,timeLabel;
+    public ProgressBar spinner;
+    private boolean isPlayingPreview,isLoadingPreview;
+    String leftTime;
 
 
 
@@ -80,6 +90,12 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements Runna
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaPlayer();
+    }
+
     private void updateData() {
 
         ImageView bookBannerImage = (ImageView) findViewById(R.id.bookBannerImage);
@@ -112,10 +128,16 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements Runna
         previewPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playPreview();
+                playPreviewButtonPressed();
 
             }
         });
+
+        previewLayout=(RelativeLayout)findViewById(R.id.preview_layout);
+        previewLabel=(TextView)findViewById(R.id.preview_label);
+        timeLabel=(TextView)findViewById(R.id.time_label);
+        spinner = (ProgressBar)findViewById(R.id.progressBar);
+
         if(audioBook.getLanguageCode()== AudioBook.LanguageCode.LAN_SI){
             description.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
             title.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
@@ -167,71 +189,114 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements Runna
         }
 
     }
+private void updatePreviewLayout(){
+    if(isLoadingPreview || isPlayingPreview){
+        previewLayout.setVisibility(View.VISIBLE);
+        previewPlayButton.setImageResource(R.drawable.btn_play_pause);
 
+        if(isPlayingPreview){
+           spinner.setVisibility(View.INVISIBLE);
+            previewLabel.setText("Preview");
+            timeLabel.setText(leftTime);
+
+        }else{
+            spinner.setVisibility(View.VISIBLE);
+            previewLabel.setText("Loading...");
+            timeLabel.setText("");
+        }
+    }else{
+        previewLayout.setVisibility(View.GONE);
+        previewPlayButton.setImageResource(R.drawable.btn_play_start);
+    }
+}
+
+    private void playPreviewButtonPressed(){
+        if (audioBook.getPreview_audio() !=null && (audioBook.getPreview_audio().length()>0)) {
+            boolean stopPlayer = false;
+                if(isLoadingPreview || isPlayingPreview ){
+                    stopPlayer=true;
+                }
+
+            if(stopPlayer){
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.stop();
+                    new Thread(this).interrupt();
+                }
+
+                mediaPlayer.reset();
+                isPlayingPreview=false;
+                isLoadingPreview=false;
+
+            }else{
+                playPreview();
+            }
+
+        }
+        updatePreviewLayout();
+    }
     private void playPreview( ) {
-
         isLoadingPreview=true;
         isPlayingPreview=false;
+                if (connectionDetector.isConnectingToInternet()) {
+                    if (mediaPlayer == null) {
+                        mediaPlayer = new MediaPlayer();
+                    }
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.stop();
+                        new Thread(this).interrupt();
+                    }
 
-        if (connectionDetector.isConnectingToInternet()) {
-            if (mediaPlayer == null) {
-                mediaPlayer = new MediaPlayer();
-            }
-            if(mediaPlayer.isPlaying()){
-                mediaPlayer.stop();
-                new Thread(this).interrupt();
-            }
+                    mediaPlayer.reset();
 
-            mediaPlayer.reset();
+                    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    try {
+                        mediaPlayer.setDataSource(audioBook.getPreview_audio());
+                    } catch (IOException e) {
+                        Log.v("playPreview", "IOException" + e.getMessage());
 
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            try {
-                mediaPlayer.setDataSource(audioBook.getPreview_audio());
-            }catch (IOException e) {
-                Log.v("playPreview", "IOException" + e.getMessage());
-
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                public void onPrepared(MediaPlayer mp) {
-                    isPlayingPreview=true;
-                    isLoadingPreview=false;
-                    startTimer();
-                    mp.start();
-                //    notifyDataSetChanged();
-                }
-            });
-            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                public boolean onError(MediaPlayer mp, int what, int extra) {
-
-                    return false;
-                }
-            });
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    isPlayingPreview=false;
-                    isLoadingPreview=false;
-                    stopTimer();
-                 //   notifyDataSetChanged();
-                }
-            });
-            mediaPlayer.prepareAsync(); // prepare async to not block main
-
-
-        } else {
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("No Internet Connection").setPositiveButton(
-                    "OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        public void onPrepared(MediaPlayer mp) {
+                            isPlayingPreview=true;
+                            isLoadingPreview=false;
+                            startTimer();
+                            mp.start();
+                            updatePreviewLayout();
                         }
                     });
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        }
+                    mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                        public boolean onError(MediaPlayer mp, int what, int extra) {
+
+                            return false;
+                        }
+                    });
+                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            isPlayingPreview=false;
+                            isLoadingPreview=false;
+                            stopTimer();
+                            updatePreviewLayout();
+
+                        }
+                    });
+                    mediaPlayer.prepareAsync(); // prepare async to not block main
+
+
+                } else {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage("No Internet Connection").setPositiveButton(
+                            "OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // FIRE ZE MISSILES!
+                                }
+                            });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
 
     }
 
@@ -250,6 +315,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements Runna
             mediaPlayer=null;
 
         }
+        stopTimer();
     }
 
 
@@ -266,7 +332,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements Runna
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                super.onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -296,6 +362,32 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements Runna
 
     @Override
     public void run() {
+        int currentPosition = 0;//
+        while (mediaPlayer != null && mediaPlayer.isPlaying() && currentPosition < mediaPlayer.getDuration()) {
+            try {
+                Thread.sleep(1000);
+                currentPosition = mediaPlayer.getCurrentPosition();
 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+           updateTimer();
+        }
+    }
+    private void updateTimer() {
+        int currentPosition = mediaPlayer.getCurrentPosition();
+        int totalDuration =mediaPlayer.getDuration();
+        leftTime= AppUtils.milliSecondsToTimer(totalDuration - currentPosition);
+        // Get a handler that can be used to post to the main thread
+        Handler mainHandler = new Handler(this.getMainLooper());
+
+        Runnable timerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                updatePreviewLayout();
+
+            } // This is your code
+        };
+        mainHandler.post(timerRunnable);
     }
 }

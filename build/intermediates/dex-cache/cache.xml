@@ -6,119 +6,119 @@
         jumboMode="false"
         revision="22.0.1"
         sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/classes-1ee80e7674c2f5f667af5235b18a5fc600162657.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-1ee80e7674c2f5f667af5235b18a5fc600162657.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.1.2/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="158555fbeff80e5a85464a818eadda8a448a1051">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/classes-18dc8d63c6d460a45648b93c896e211e6698eb94.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-18dc8d63c6d460a45648b93c896e211e6698eb94.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/Lisn/facebookSDK/unspecified/libs/bolts-android-1.1.2.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/bolts-android-1.1.2-3fc1cce1ac00048526c553f7639320758606f416.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/bolts-android-1.1.2-3fc1cce1ac00048526c553f7639320758606f416.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/Lisn/facebookSDK/unspecified/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="1dace269760e2721850184a0269dcc3b7123c012">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/classes-3358ddd23d9578a008b9322bc93eb2163fcb7ac1.jar" />
+        sha1="f3e21ff695e196359c4ed03c592dc2fa01ec939c">
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-3358ddd23d9578a008b9322bc93eb2163fcb7ac1.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.0/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="7372378dec00f25c04714a058617e515858273c8">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/classes-e6afcbef8e4dd5e5158c1da9184f7ecd0232d5f6.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-e6afcbef8e4dd5e5158c1da9184f7ecd0232d5f6.jar" />
     </item>
     <item
         jar="/Users/Rasika/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/support-annotations-22.2.1-5a14065640e585f029c3ec272c5ced901178b5b6.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-5a14065640e585f029c3ec272c5ced901178b5b6.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/classes-3de53962cba7b76337fb4bb3254a5049e542ee40.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-3de53962cba7b76337fb4bb3254a5049e542ee40.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.ms-square/expandableTextView/0.1.4/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="b305cfd7ae732d7c146fe3046aea90f877c3892b">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/classes-5e433b93fe003ee5ff0e2725b2f342c342dbfafd.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-5e433b93fe003ee5ff0e2725b2f342c342dbfafd.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.2.3/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="151dcc4be9b748290223c6bbf94bf8213181a971">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/classes-a3f7e83beb90ca302fe5d309a91fa10decf5d7cb.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-a3f7e83beb90ca302fe5d309a91fa10decf5d7cb.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.0/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="97f7e239e86ef994de894818fdd8a71d2e89d6aa">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/classes-25b9b13ef3e55ab16dcd10d39d12f7f7c430deeb.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-25b9b13ef3e55ab16dcd10d39d12f7f7c430deeb.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/Lisn/CoverFlowlib/unspecified/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="e15360ccf3c59708b41fa1b90f2733e8f88bcb7e">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/classes-da56caa23d9987b3021f02230d4f04f8f40acce6.jar" />
+        sha1="91c540ca26c35121847b3d93fc8be76446f24f7c">
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-da56caa23d9987b3021f02230d4f04f8f40acce6.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/libs/internal_impl-22.2.1.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/internal_impl-22.2.1-ece5b4dbc9ec9e7883c9a86a06bd355d72d77231.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-ece5b4dbc9ec9e7883c9a86a06bd355d72d77231.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.1.2/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="0d6546c1c73cb64a6907f694e6c4bf4b50fefa70">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/classes-13d5a9551dcf70981dce7e37f08060acad8236a6.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-13d5a9551dcf70981dce7e37f08060acad8236a6.jar" />
     </item>
     <item
         jar="/Users/Rasika/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.4.0/f36d2d4e3a36b3259aaf9d004d29b4cdc6c1bfb2/picasso-2.4.0.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="f36d2d4e3a36b3259aaf9d004d29b4cdc6c1bfb2">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/picasso-2.4.0-6e8dcf6eb681106dfca182c0ebef2d8b051e0fe7.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/picasso-2.4.0-6e8dcf6eb681106dfca182c0ebef2d8b051e0fe7.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.android.support/design/22.2.1/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="1821601ddbec5ff125653097812823388700af74">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/classes-ecc6fbfcb14eaf8f56c16fdc3161a3efeb6e034e.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-ecc6fbfcb14eaf8f56c16fdc3161a3efeb6e034e.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="f8efd0096475e0daf054267b61544e10dc776503">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/classes-419452b7aa521c4ad3f44e458f82a66ece12744c.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/classes-419452b7aa521c4ad3f44e458f82a66ece12744c.jar" />
     </item>
     <item
         jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/libs/volley.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/release/volley-4cb5ff94bc0c60c30420f5c9910a1ff6a3a0b0f2.jar" />
+        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.0/Lisn/lisn/build/intermediates/pre-dexed/debug/volley-4cb5ff94bc0c60c30420f5c9910a1ff6a3a0b0f2.jar" />
     </item>
 
 </items>

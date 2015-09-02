@@ -204,7 +204,7 @@ private void setBookTitle(int position){
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-              this.finish();
+                super.onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
