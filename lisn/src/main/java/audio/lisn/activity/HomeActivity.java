@@ -19,6 +19,7 @@ import android.view.MenuItem;
 
 import audio.lisn.R;
 import audio.lisn.fragment.HomeFragment;
+import audio.lisn.fragment.StoreBaseFragment;
 import audio.lisn.fragment.StoreFragment;
 
 //import android.support.v7.widget.SearchView;
@@ -149,7 +150,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 title = getString(R.string.title_home);
                 break;
             case R.id.drawer_store:
-                fragment = StoreFragment.newInstance();
+                fragment = StoreBaseFragment.newInstance();
                 title = getString(R.string.title_store);
                 break;
             case R.id.drawer_my_book:
